@@ -1,4 +1,4 @@
-function InputText({ label, type, placeholder }) {
+function SingleValueInput({ label, type, placeholder }) {
   return (
     <div className="mb-4">
       <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -6,11 +6,11 @@ function InputText({ label, type, placeholder }) {
       </label>
       <input 
         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-        type={type} 
+        type={type}
         placeholder={placeholder} 
       />
     </div>
   );
 }
 
-export default InputText;
+export default SingleValueInput;
