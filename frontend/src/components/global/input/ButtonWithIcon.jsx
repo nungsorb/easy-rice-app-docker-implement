@@ -1,7 +1,12 @@
-function ButtonWithIcon({ label = "Button", bgColor, svgIcon = null }) {
+function ButtonWithIcon({ label = "Button", bgColor = "blue", svgIcon = null }) {
+  
+  const bgColorDict = {
+    blue: "bg-blue-700 hover:bg-blue-800 ",
+    green: "bg-green-700 hover:bg-green-800 ",
+  };
 
   return (
-    <div className={`flex justify-center items-center gap-1 bg-${bgColor}-700 hover:bg-${bgColor}-800 text-white hover:cursor-pointer py-2 px-3 rounded-md text-sm text-center`}>
+    <div className={bgColorDict[bgColor] + "flex justify-center items-center gap-1 text-white hover:cursor-pointer py-2 px-3 rounded-md text-sm text-center"}>
       {svgIcon &&
         <div>
           <img width="18px" src={svgIcon} alt="button icon" />

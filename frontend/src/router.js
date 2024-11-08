@@ -4,6 +4,7 @@ import {
 import App from "./App";
 import TemplateWithNavbar from "./pages/TemplateWithNavbar";
 import HistoryPage from "./pages/HistoryPage";
+import CreateInspectionPage from "./pages/CreateInspectionPage";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
       {
         path: "history",
         element: <HistoryPage />
+      },
+      {
+        path: "create",
+        element: <CreateInspectionPage />
       }
     ]
   },
