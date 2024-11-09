@@ -6,6 +6,7 @@ import TemplateWithNavbar from "./pages/TemplateWithNavbar";
 import HistoryPage from "./pages/HistoryPage";
 import CreateInspectionPage from "./pages/CreateInspectionPage";
 import ViewInspectionPage from "./pages/ViewInspectionPage";
+import EditInspectionPage from "./pages/EditInspectionPage";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         path: "view",
         element: <ViewInspectionPage />
+      },
+      {
+        path: "edit",
+        element: <EditInspectionPage />
       }
     ]
   },
