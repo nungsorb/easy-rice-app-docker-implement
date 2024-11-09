@@ -6,7 +6,7 @@ function DropdownInput({ label, options }) {
       </label>
       <select className="text-sm shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         {options.map((option, index) => 
-          <option id={index} value={option.value}>{option.name}</option>
+          <option key={index} value={option.value}>{option.name}</option>
         )}
       </select>
     </div>

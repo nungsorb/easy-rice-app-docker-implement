@@ -8,8 +8,8 @@ function HistoryTable() {
     const rows = [];
     for (let i = 0; i < 10; i++) {
       rows.push(
-        <HistoryTableRow 
-          id={i}
+        <HistoryTableRow
+          key={i}
           createDate={"08/11/2024 09:00:00"} 
           inspectionId={"MI-000-0000"} 
           name={"Lorem ipsum dolor sit amet."} 
@@ -23,19 +23,19 @@ function HistoryTable() {
    
   return (
     <>
-      <div class="flex flex-col my-4">
-        <div class="overflow-x-auto border rounded-md">
-          <div class="min-w-full inline-block align-middle">
-            <div class="overflow-hidden">
-              <table class="min-w-full divide-y divide-gray-300">
-                <thead class="bg-green-700">
+      <div className="flex flex-col my-4">
+        <div className="overflow-x-auto border rounded-md">
+          <div className="min-w-full inline-block align-middle">
+            <div className="overflow-hidden">
+              <table className="min-w-full divide-y divide-gray-300">
+                <thead className="bg-green-700">
                   <tr>
                     {columns.map((col, index) => 
-                      <th id={index} scope="col" class="px-6 py-3 text-start text-sm font-medium text-white text-nowrap">{col}</th>
+                      <th key={index} scope="col" className="px-6 py-3 text-start text-sm font-medium text-white text-nowrap">{col}</th>
                     )}
                   </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-300">
+                <tbody className="divide-y divide-gray-300">
                   {mockRows().map((row) => row)}
                 </tbody>
               </table>
