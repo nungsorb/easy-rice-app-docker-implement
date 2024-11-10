@@ -1,0 +1,17 @@
+name: easy_rice
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+      - MONGO_INITDB_DATABASE=easy_rice
+    volumes:
+      - mongodb_db_volume:/data/db
+      - mongodb_configdb_volume:/data/configdb
+volumes:
+  mongodb_db_volume:
+  mongodb_configdb_volume:
