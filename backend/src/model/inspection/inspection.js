@@ -18,7 +18,7 @@ const InspectionSchema = new Schema({
 
 export const Inspection = connection.model('Inspection', InspectionSchema);
 
-async function generateInspectionId() {
+export async function generateInspectionId() {
   try {
     const lastInspection = await Inspection.findOne({}).sort({ _id: -1 });
 
