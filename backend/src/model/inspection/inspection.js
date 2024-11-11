@@ -5,6 +5,7 @@ import connection from '../../db/connection.js';
 const InspectionSchema = new Schema({
   name: { type: String, required: true },
   createDate: { type: Date, default: Date.now },
+  updateDate: { type: String },
   imageLink: { type: String },
   inspectionId: { type: String, required: true },
   standardId: { type: String, required: true },

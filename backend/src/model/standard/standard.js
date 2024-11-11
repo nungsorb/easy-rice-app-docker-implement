@@ -9,7 +9,7 @@ export const StandardDataSchema = new Schema({
   name: { type: String, required: true },
   conditionMax: { type: String, enum: ['LT', 'LE', 'GT', 'GE', 'EQ', 'NE'], default: null },
   conditionMin: { type: String, enum: ['LT', 'LE', 'GT', 'GE', 'EQ', 'NE'], default: null },
-  shape: [{ type: String, required: true }],
+  shape: [{ type: String, enum: ['wholegrain', 'broken'], required: true }],
   maxLength: { type: Number, default: null },
   minLength: { type: Number, default: null },
 });
