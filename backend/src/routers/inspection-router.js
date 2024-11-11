@@ -35,8 +35,8 @@ router.get('/history/:id', async (req, res) => {
   console.log(`${req.originalUrl}`);
   try {
     const { id: inspectionId } = req.params;
-    const results = await Inspection.findOne({ inspectionId });
-    res.status(200).send(results);
+    const result = await Inspection.findOne({ inspectionId });
+    res.status(200).send({ data: result });
   } catch (err) {
     console.log(err);
     res.status(400).send({ message: 'something went wrong.'});
@@ -49,7 +49,7 @@ router.post('/history', async (req, res) => {
     const inspectionData = req.body;
     inspectionData.inspectionId = await generateInspectionId();
     await Inspection.create(inspectionData);
-    res.status(201).send({ message: inspectionData });
+    res.status(201).send({ data: inspectionData });
   } catch (err) {
     console.log(err);
     res.status(400).send({ message: 'something went wrong.'});
@@ -61,7 +61,7 @@ router.delete('/history', async (req, res) => {
   try {
     const { inspectionId } = req.body;
     await Inspection.deleteOne({ inspectionId });
-    res.status(201).send({ message: inspectionId });
+    res.status(201).send({ data: inspectionId });
   } catch (err) {
     console.log(err);
     res.status(400).send({ message: 'something went wrong.'});

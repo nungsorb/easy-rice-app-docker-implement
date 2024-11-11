@@ -4,6 +4,7 @@ import connection from './src/db/connection.js';
 import cors from 'cors';
 import express from 'express';
 import inspectionRouter from './src/routers/inspection-router.js';
+import standardRouter from './src/routers/standard-router.js';
 
 import './src/db/init-data.js';
 
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/', inspectionRouter);
+app.use('/', standardRouter);
 
 app.get('/health', (req, res) => {
   console.log(`${req.originalUrl}`);
