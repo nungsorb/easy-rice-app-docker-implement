@@ -1,18 +1,19 @@
 import { Schema } from 'mongoose';
 import { StandardDataSchema } from '../standard/standard.js';
 import connection from '../../db/connection.js';
+import { getCurrentLocalTime } from '../../util/time.js';
 
 const InspectionSchema = new Schema({
   name: { type: String, required: true },
-  createDate: { type: Date, default: Date.now },
-  updateDate: { type: String },
-  imageLink: { type: String },
+  createDate: { type: Date, default: getCurrentLocalTime() },
+  updateDate: { type: String , default: null },
+  resultPath: { type: String , default: null },
   inspectionId: { type: String, required: true },
   standardId: { type: String, required: true },
-  note: { type: String },
+  note: { type: String, default: null },
   standardName: { type: String, required: true },
-  samplingDate: { type: Date },
-  samplingPoint: [{ type: String, enum: ['Front End', 'Back End', 'Other'] }],
+  samplingDate: { type: Date , default: null },
+  samplingPoint: [{ type: String, enum: ['Front End', 'Back End', 'Other'], default: null }],
   price: { type: Number, default: 0, min: 0, max: 100_000 },
   standardData: { type: [StandardDataSchema], required: true }
 });

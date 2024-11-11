@@ -11,8 +11,9 @@ import './src/db/init-data.js';
 const port = process.env.PORT;
 const app = express();
 
-app.use(bodyParser.urlencoded());
-app.use(bodyParser.json());
+const fileSizeLimit = '50mb';
+app.use(bodyParser.urlencoded({ limit: fileSizeLimit }));
+app.use(bodyParser.json({ limit: fileSizeLimit }));
 app.use(cors());
 
 app.use('/', inspectionRouter);

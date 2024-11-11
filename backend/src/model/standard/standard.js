@@ -3,6 +3,7 @@ import AutoIncrement from '../../db/auto-increment-factory.js';
 import connection from '../../db/connection.js';
 import standards from './standards.json' with { type: 'json' };
 import util from 'util';
+import { getCurrentLocalTime } from '../../util/time.js';
 
 export const StandardDataSchema = new Schema({
   key: { type: String, required: true },
@@ -16,7 +17,7 @@ export const StandardDataSchema = new Schema({
 
 const StandardSchema = new Schema({
   name: { type: String, required: true },
-  createDate: { type: Date, default: Date.now },
+  createDate: { type: Date, default: getCurrentLocalTime() },
   standardData: { type: [StandardDataSchema], required: true } 
 });
 

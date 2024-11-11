@@ -1,5 +1,6 @@
 import express from 'express';
 import { generateInspectionId, Inspection } from '../model/inspection/inspection.js';
+import Multer from '../config/multer-config.js';
 
 const router = express.Router();
 
@@ -43,16 +44,20 @@ router.get('/history/:id', async (req, res) => {
   }
 });
 
-router.post('/history', async (req, res) => {
+router.post('/history', Multer.single('file'), async (req, res) => {
   console.log(`${req.originalUrl}`);
   try {
     const inspectionData = req.body;
     inspectionData.inspectionId = await generateInspectionId();
+    if (req.file) {
+      console.log(req.file.destination, req.file.filename)
+      inspectionData.resultPath = `${req.file.destination}${req.file.filename}`;
+    }
     await Inspection.create(inspectionData);
     res.status(201).send({ data: inspectionData });
   } catch (err) {
     console.log(err);
-    res.status(400).send({ message: 'something went wrong.'});
+    res.status(400).send({ message: err });
   }
 });
 
