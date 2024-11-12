@@ -1,3 +1,4 @@
+version: '3'
 name: easy_rice
 services:
   mongodb:
@@ -12,6 +13,27 @@ services:
     volumes:
       - mongodb_db_volume:/data/db
       - mongodb_configdb_volume:/data/configdb
+
+  backend:
+    build: ./backend
+    environment:
+      - MONGODB_CONNECTION_STRING=mongodb://mongodb:27017
+      - DATABASE_NAME=easy_rice
+      - DATABASE_USER=admin
+      - DATABASE_PASSWORD=admin
+    depends_on:
+      - mongodb
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "10000:80"
+    depends_on:
+      - backend
+
 volumes:
   mongodb_db_volume:
   mongodb_configdb_volume:
