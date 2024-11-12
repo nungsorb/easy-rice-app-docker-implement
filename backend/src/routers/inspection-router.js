@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/history', async (req, res) => {
   console.log(`${req.originalUrl}`);
   try {
-    const { fromDate, toDate, inspectionId } = req.query;
+    const { fromDate, toDate, inspectionId, page } = req.query;
     
     const criteria = {};
     if (inspectionId) {
@@ -24,8 +24,15 @@ router.get('/history', async (req, res) => {
       }
     }
 
-    const results = await Inspection.find(criteria, { standardData: 0 });
-    res.status(200).send({ data: results });
+    const limit = 10;
+    const offset = ((Number(page) ?? 1) - 1) * limit;
+    const results = await Inspection.find(
+      criteria, 
+      { standardData: 0 }, 
+      { skip: offset, limit }
+    ).sort({ _id: -1 });
+    const totalDocuments = await Inspection.estimatedDocumentCount();
+    res.status(200).send({ data: results, totalDocuments });
   } catch (err) {
     console.log(err);
     res.status(400).send({ message: 'something went wrong.'});
