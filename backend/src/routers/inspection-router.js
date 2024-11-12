@@ -30,7 +30,7 @@ router.get('/history', async (req, res) => {
     const results = await Inspection.find(
       criteria, 
       { standardData: 0 }, 
-      { skip: offset, limit }
+      // { skip: offset, limit }
     ).sort({ _id: -1 });
     const totalDocuments = await Inspection.estimatedDocumentCount();
     res.status(200).send({ data: results, totalDocuments });
@@ -57,6 +57,9 @@ router.post('/history', Multer.single('file'), async (req, res) => {
   try {
     const inspectionData = req.body;
     inspectionData.inspectionId = await generateInspectionId();
+    if (inspectionData.samplingDate) {
+      inspectionData.samplingDate = getCurrentLocalTime(inspectionData.samplingDate);
+    }
     if (req.file) {
       console.log(req.file.destination, req.file.filename)
       inspectionData.resultPath = `${req.file.destination}${req.file.filename}`;

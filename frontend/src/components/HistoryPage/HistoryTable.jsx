@@ -67,7 +67,6 @@ function HistoryTable() {
           </div>
         </div>
       </div>
-      <SimplePagination />
     </>
   );
 }

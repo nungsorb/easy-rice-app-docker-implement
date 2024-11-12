@@ -67,8 +67,8 @@ function ViewInspectionPage() {
               <LabelWithDataField label={"Create Date - Time"} data={convertDateFormat(inspectionData.createDate)} />
               <LabelWithDataField label={"Inspection ID"} data={inspectionData.inspectionId} />
               <LabelWithDataField label={"Standard"} data={inspectionData.standardName} />
-              <LabelWithDataField label={"Total Sample"} data={"42 Kernal"}/>
-              <LabelWithDataField 
+              <LabelWithDataField label={"Result Path"} data={inspectionData.resultPath ?? 'No file upload'} />
+              <LabelWithDataField
                 label={"Update Date - Time"}
                 data={inspectionData.updateDate ? convertDateFormat(inspectionData.updateDate) : '-'}
               />
@@ -105,6 +105,10 @@ function ViewInspectionPage() {
                 <PercentageTableRow rowData={["yellow", "0.00 %"]} />
                 <PercentageTableRow rowData={["paddy", "0.00 %"]} />
                 <PercentageTableRow rowData={["damaged", "0.00 %"]} />
+                <PercentageTableRow rowData={["glutinous", "0.00 %"]} />
+                <PercentageTableRow rowData={["chalky", "0.00 %"]} />
+                <PercentageTableRow rowData={["red", "0.00 %"]} />
+                <PercentageTableRow rowData={["total", "0.00 %"]} />
               </PercentageTable>
             </div>
           </div>

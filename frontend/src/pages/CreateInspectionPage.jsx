@@ -84,6 +84,7 @@ function CreateInspectionPage() {
           },
         }
       );
+      navigate('/history');
       window.location.reload();
     } catch (err) {
       console.log(err);

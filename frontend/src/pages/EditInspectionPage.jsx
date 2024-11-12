@@ -32,7 +32,7 @@ function EditInspectionPage() {
           name: inspectionData.name,
           note: inspectionData.note,
           price: inspectionData.price,
-          samplingDate: new Date(inspectionData.samplingDate).toISOString().slice(0, 16)
+          samplingDate: inspectionData.samplingDate ? new Date(inspectionData.samplingDate).toISOString().slice(0, 16) : ""
         });
         setSamplingPoints({
           "Front End": inspectionData.samplingPoint.includes("Front End"),
