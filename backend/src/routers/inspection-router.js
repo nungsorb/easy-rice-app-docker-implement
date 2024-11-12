@@ -25,7 +25,7 @@ router.get('/history', async (req, res) => {
     }
 
     const limit = 10;
-    const offset = ((Number(page) ?? 1) - 1) * limit;
+    const offset = ((page ? Number(page) : 1) - 1) * limit;
     const results = await Inspection.find(
       criteria, 
       { standardData: 0 }, 

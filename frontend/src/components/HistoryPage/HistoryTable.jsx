@@ -3,17 +3,31 @@ import SimplePagination from "../global/common/SimplePagination";
 import HistoryTableRow from "./HistoryTableRow";
 import { convertDateFormat } from "../../util/time.js";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 
 function HistoryTable() {
   const columns = ["Create Date - Time", "Inspection ID", "Name", "Standard", "Note", "Action"];
   const [inspectionHistory, setInspectionHistory] = useState(null)
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     const fetchHistory = async () => {
-      const apiUrl = 'http://localhost:3001/history';
+      const params = {
+        inspectionId: searchParams.get("inspectionId"),
+        fromDate: searchParams.get("fromDate"),
+        toDate: searchParams.get("toDate"),
+        page: searchParams.get("page")
+      }
+
+      const cleanedParams = Object.fromEntries(
+        Object.entries(params).filter(([key, value]) => value !== "" && value !== null && value !== undefined)
+      );
+
+      const queryString = new URLSearchParams(cleanedParams).toString();
+      const apiUrl = `http://localhost:3001/history${queryString !== "" ? `?${queryString}` : ""}`;
       try {
         const response = await axios.get(apiUrl);
-        setInspectionHistory(response.data.data);
+        setInspectionHistory(response.data);
       } catch (err) {
         console.log(err);
       }
@@ -21,7 +35,7 @@ function HistoryTable() {
 
     fetchHistory();
   }, []);
-   
+  
   return (
     <>
       <div className="flex flex-col my-4">
@@ -37,7 +51,7 @@ function HistoryTable() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-300">
-                  {inspectionHistory?.map((record, index) => 
+                  {inspectionHistory?.data?.map((record, index) => 
                     <HistoryTableRow
                       key={index}
                       createDate={convertDateFormat(record.createDate)} 
@@ -53,7 +67,7 @@ function HistoryTable() {
           </div>
         </div>
       </div>
-      <SimplePagination total={100} />
+      <SimplePagination />
     </>
   );
 }
