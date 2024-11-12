@@ -27,6 +27,25 @@ function ViewInspectionPage() {
     fetchInspectionData();
   }, []);
 
+  const lengthCriteriaString = (conditionMin, minLength, conditionMax, maxLength) => {
+    const operators = {
+      LT: '<', 
+      LE: '<=',
+      GT: '>',
+      GE: '>=',
+      EQ: '=',   
+      NE: '!='
+    };
+
+    const minConditionString = conditionMin ? `${operators[conditionMin]}${minLength.toFixed(2)}` : '';
+    const maxConditionString = conditionMax ? `${operators[conditionMax]}${maxLength.toFixed(2)}` : '';
+    if (minConditionString === maxConditionString) {
+      return minConditionString;
+    }
+    
+    return `${minConditionString} ${maxConditionString}`
+  }
+
   return (
     <div className="flex gap-4 flex-col lg:flex-row">
       <div className="flex flex-col gap-2 self-center lg:self-start max-w-72">
@@ -66,9 +85,18 @@ function ViewInspectionPage() {
             <div className="p-4 bg-white">
               <div className="font-bold text-slate-700 text-lg mb-4">Composition</div>
               <PercentageTable columns={["Name", "Length", "Actual"]}>
-                <PercentageTableRow rowData={["ข้าวเต็มเมล็ด", ">= 7", "0.00 %"]} />
-                <PercentageTableRow rowData={["ข้าวหักใหญ่", "3.5 - 6.99", "0.00 %"]} />
-                <PercentageTableRow rowData={["ข้าวหักธรรมดา", "0 - 3.49", "0.00 %"]} />
+                {inspectionData.standardData.map((data, index) => 
+                  <PercentageTableRow 
+                    key={index} 
+                    rowData={
+                      [
+                        data.name, 
+                        lengthCriteriaString(data.conditionMin, data.minLength, data.conditionMax, data.maxLength),
+                        "0.00 %"
+                      ]
+                    } 
+                  />
+                )}
               </PercentageTable>
             </div>
             <div className="p-4 bg-white">
