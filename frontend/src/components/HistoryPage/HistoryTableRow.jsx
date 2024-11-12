@@ -1,8 +1,10 @@
 import TrashBinIcon from '../global/icon/trash-bin.svg';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 function HistoryTableRow({ createDate, inspectionId, name, standard, note }) {
-  
+  const navigate = useNavigate();
+
   const handleDelete = async () => {
     const url = 'http://localhost:3001/history';
 
@@ -24,7 +26,7 @@ function HistoryTableRow({ createDate, inspectionId, name, standard, note }) {
   };
 
   return (
-    <tr className="bg-white">
+    <tr className="bg-white hover:bg-slate-100" onClick={() => navigate(`/view/${inspectionId}`)}>
       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 truncate max-w-56">{createDate}</td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 truncate max-w-56">{inspectionId}</td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 truncate max-w-56">{name}</td>

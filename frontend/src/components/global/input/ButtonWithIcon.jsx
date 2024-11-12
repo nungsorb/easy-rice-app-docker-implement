@@ -6,8 +6,8 @@ function ButtonWithIcon({ label = "Button", bgColor = "blue", svgIcon = null, on
   };
 
   return (
-    <div 
-      onClick={onClick} 
+    <button 
+      onClick={onClick}
       className={bgColorDict[bgColor] + "flex justify-center items-center gap-1 text-white hover:cursor-pointer py-2 px-3 rounded-md text-sm text-center"}
     >
       {svgIcon &&
@@ -16,7 +16,7 @@ function ButtonWithIcon({ label = "Button", bgColor = "blue", svgIcon = null, on
         </div>
       }
       <div className="mb-[1.5px]">{label}</div>
-    </div>
+    </button>
   );
 }
 

@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
         element: <CreateInspectionPage />
       },
       {
-        path: "view",
+        path: "view/:inspectionId",
         element: <ViewInspectionPage />
       },
       {

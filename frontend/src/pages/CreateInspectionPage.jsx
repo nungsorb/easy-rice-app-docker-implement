@@ -4,8 +4,10 @@ import DropdownInput from "../components/global/input/DropdownInput";
 import FileInput from "../components/global/input/FileInput";
 import NoFillButtonWithIcon from "../components/global/input/NoFillButtonWithIcon";
 import SingleValueInput from "../components/global/input/SingleValueInput";
+import { useNavigate } from "react-router-dom";
 
 function CreateInspectionPage() {
+  const navigate = useNavigate();
   const standards = [
     { name: "Please Select Standard", value: null },
     { name: "Standard 1", value: "standard_1" },
@@ -26,7 +28,7 @@ function CreateInspectionPage() {
         <SingleValueInput label={"Date/Time of Sampling"} type={"datetime-local"} placeholder={"..."}/>
       </div>
       <div className="flex gap-2 justify-end">
-        <NoFillButtonWithIcon label={"Cancel"} borderColor={"green"} />
+        <NoFillButtonWithIcon onClick={() => navigate(-1)} label={"Cancel"} borderColor={"green"} />
         <ButtonWithIcon label={"Submit"} bgColor={"green"} />
       </div>
     </div>
