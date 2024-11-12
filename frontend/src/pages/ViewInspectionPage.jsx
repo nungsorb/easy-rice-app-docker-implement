@@ -57,7 +57,7 @@ function ViewInspectionPage() {
         </div>
         <div className="flex gap-2 justify-end">
           <NoFillButtonWithIcon onClick={() => navigate(-1)} label={"Back"} borderColor={"green"} />
-          <ButtonWithIcon label={"Edit"} bgColor={"green"} />
+          <ButtonWithIcon onClick={() => navigate(`/edit/${inspectionId}`)} label={"Edit"} bgColor={"green"} />
         </div>
       </div>
       {inspectionData ?

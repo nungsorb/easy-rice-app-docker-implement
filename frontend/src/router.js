@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
         element: <ViewInspectionPage />
       },
       {
-        path: "edit",
+        path: "edit/:inspectionId",
         element: <EditInspectionPage />
       }
     ]

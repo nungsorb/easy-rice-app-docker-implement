@@ -1,5 +1,5 @@
-export function getCurrentLocalTime() {
-  let timestamp = new Date();
+export function getCurrentLocalTime(date) {
+  let timestamp = date ? new Date(date) : new Date();
   const offset = timestamp.getTimezoneOffset();
   timestamp = new Date(timestamp.getTime() - (offset * 60 * 1000));
   

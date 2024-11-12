@@ -1,6 +1,7 @@
 import express from 'express';
 import { generateInspectionId, Inspection } from '../model/inspection/inspection.js';
 import Multer from '../config/multer-config.js';
+import { getCurrentLocalTime } from '../util/time.js';
 
 const router = express.Router();
 
@@ -68,12 +69,29 @@ router.post('/history', Multer.single('file'), async (req, res) => {
   }
 });
 
+router.put('/history/:id', async (req, res) => {
+  console.log(`${req.originalUrl}`);
+  try {
+    const { id: inspectionId } = req.params;
+    const filter = { inspectionId };
+    const update = req.body;
+    update.samplingDate = getCurrentLocalTime(update.samplingDate);
+    update.updateDate = getCurrentLocalTime();
+
+    const data = await Inspection.findOneAndUpdate(filter, update);
+    res.status(201).send({ data });
+  } catch (err) {
+    console.log(err);
+    res.status(400).send({ message: err });
+  }
+});
+
 router.delete('/history', async (req, res) => {
   console.log(`${req.originalUrl}`);
   try {
     const { inspectionId } = req.body;
     await Inspection.deleteOne({ inspectionId });
-    res.status(201).send({ data: inspectionId });
+    res.status(200).send({ data: inspectionId });
   } catch (err) {
     console.log(err);
     res.status(400).send({ message: 'something went wrong.'});
