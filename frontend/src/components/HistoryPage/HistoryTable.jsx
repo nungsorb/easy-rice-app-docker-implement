@@ -1,25 +1,26 @@
+import { useState, useEffect } from "react";
 import SimplePagination from "../global/common/SimplePagination";
 import HistoryTableRow from "./HistoryTableRow";
+import { convertDateFormat } from "../../util/time.js";
+import axios from "axios";
 
 function HistoryTable() {
   const columns = ["Create Date - Time", "Inspection ID", "Name", "Standard", "Note", "Action"];
-  
-  const mockRows = () => {
-    const rows = [];
-    for (let i = 0; i < 10; i++) {
-      rows.push(
-        <HistoryTableRow
-          key={i}
-          createDate={"08/11/2024 09:00:00"} 
-          inspectionId={"MI-000-0000"} 
-          name={"Lorem ipsum dolor sit amet."} 
-          standard={"Lorem ipsum dolor sit amet."} 
-          note={"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore at nemo odio distinctio nobis sapiente odit fuga, in quis, cupiditate esse cum. Officiis quis aperiam rem hic, fuga animi blanditiis id tempore veniam ipsum, quam quas dicta recusandae qui neque odit ex asperiores sit amet unde architecto repellat quisquam. Rerum illum facilis, soluta quasi consectetur eveniet beatae quia, architecto porro quae nemo! Dolorum ipsam incidunt ab officiis maxime dolore, cumque, eveniet mollitia dignissimos aut delectus harum voluptates aliquid quidem eos excepturi provident illum at hic nesciunt commodi molestiae quos. Praesentium vitae tempora voluptatibus repellendus dicta alias quidem quo velit saepe!"} 
-        />
-      );
-    }
-    return rows;
-  };
+  const [inspectionHistory, setInspectionHistory] = useState(null)
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+      const apiUrl = 'http://localhost:3001/history';
+      try {
+        const response = await axios.get(apiUrl);
+        setInspectionHistory(response.data.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchHistory();
+  }, []);
    
   return (
     <>
@@ -36,7 +37,16 @@ function HistoryTable() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-300">
-                  {mockRows().map((row) => row)}
+                  {inspectionHistory?.map((record, index) => 
+                    <HistoryTableRow
+                      key={index}
+                      createDate={convertDateFormat(record.createDate)} 
+                      inspectionId={record.inspectionId} 
+                      name={record.name} 
+                      standard={record.standardName} 
+                      note={record.note} 
+                  />
+                  )}
                 </tbody>
               </table>
             </div>
