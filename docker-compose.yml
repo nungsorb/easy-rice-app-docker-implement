@@ -15,7 +15,9 @@ services:
       - mongodb_configdb_volume:/data/configdb
 
   backend:
-    build: ./backend
+    container_name: service
+    build: 
+      context: ./backend
     environment:
       - MONGODB_CONNECTION_STRING=mongodb://mongodb:27017
       - DATABASE_NAME=easy_rice
@@ -24,9 +26,10 @@ services:
     depends_on:
       - mongodb
     ports:
-      - "5000:9999"
+      - "3001:3001"
 
   frontend:
+    container_name: web
     build:
       context: ./frontend
     ports:
